@@ -11,10 +11,11 @@
 			"email": "381296986@qq.com"
 		}
 	],
-    "require": {
-        "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap": "*"
-    },
+	"minimum-stability": "dev",
+	"require": {
+	"yiisoft/yii2": "*",
+	"yiisoft/yii2-bootstrap": "*"
+	},
 	"autoload": {
 		"psr-4": {
 			"liyunfang\\pager\\": ""
