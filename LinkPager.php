@@ -1,5 +1,5 @@
 <?php
-namespace liyunfang\linkpager;
+namespace liyunfang\pager;
 
 use yii\helpers\Html;
 
