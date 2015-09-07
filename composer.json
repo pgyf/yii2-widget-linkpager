@@ -17,7 +17,7 @@
     },
 	"autoload": {
 		"psr-4": {
-			"liyunfang\\linkpager\\": ""
+			"liyunfang\\pager\\": ""
 		}
 	}
 }
