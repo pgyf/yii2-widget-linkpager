@@ -37,6 +37,7 @@ Once the extension is installed, simply use it in your code by  :
 
 GridView options
 ```php
+    'filterSelector' => "select[name='per-page']",
     'pager' => [
         'class' => \liyunfang\pager\LinkPager::className(),
         'showPageSize' => true,
@@ -45,5 +46,16 @@ GridView options
     ],
  ```
  
-
+ModelSearch
+```php
+    public function search($params)
+    {
+        ...
+        $pageSize = isset($params['per-page']) ? intval($params['per-page']) : 10;
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' =>  ['pageSize' => $pageSize,],
+        ]);
+        
+ ```
 该扩展为gird的分页栏提供了页大小下拉框，可以显示在分页按钮的左边和右边两个位置
