@@ -38,7 +38,7 @@ Once the extension is installed, simply use it in your code by  :
 
 GridView options
 ```php
-    'filterSelector' => "select[name='per-page'],input[name='page']",
+    'filterSelector' => "select[name='".$dataProvider->getPagination()->pageSizeParam."'],input[name='".$dataProvider->getPagination()->pageParam."']",
     'pager' => [
         'class' => \liyunfang\pager\LinkPager::className(),
         //'template' => '{pageButtons} {customPage} {pageSize}',
