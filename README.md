@@ -3,6 +3,7 @@ LinkPager widgets for Yii Framework 2.0
 ===============================
 Increase the pageSize of the page drop-down box
 ![Effect picture 1](https://github.com/liyunfang/wr/blob/master/images/yii2-widget-linkpager-1.png "Effect picture 1")  
+![Effect picture 2](https://github.com/liyunfang/wr/blob/master/images/yii2-widget-linkpager-2.png "Effect picture 2") 
 
 
 
@@ -37,12 +38,14 @@ Once the extension is installed, simply use it in your code by  :
 
 GridView options
 ```php
-    'filterSelector' => "select[name='per-page']",
+    'filterSelector' => "select[name='per-page'],input[name='page']",
     'pager' => [
         'class' => \liyunfang\pager\LinkPager::className(),
-        'showPageSize' => true,
-        'dropDownPosition' => \liyunfang\pager\LinkPager::POSITION_RIGHT,
-        'pageSizeList' => [10,20],
+        //'template' => '{pageButtons} {customPage} {pageSize}',
+        //'pageSizeList' => [10, 20, 30, 50],
+        //'customPageWidth' => 50,
+        //'customPageBefore' => ' Jump to ',
+        //'customPageAfter' => ' Page ',
     ],
  ```
  
@@ -58,4 +61,4 @@ ModelSearch
         ]);
         
  ```
-该扩展为gird的分页栏提供了页大小下拉框，可以显示在分页按钮的左边和右边两个位置
+2015-09-16 重构代码，增加自定义跳转页面文本框
