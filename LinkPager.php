@@ -1,6 +1,7 @@
 <?php
 namespace liyunfang\pager;
 
+use Yii;
 use yii\helpers\Html;
 
 /**
@@ -11,26 +12,67 @@ use yii\helpers\Html;
  */
 class LinkPager extends \yii\widgets\LinkPager{
     
-    const POSITION_LEFT = 'left';
-    const POSITION_RIGHT = 'right';
-
     /**
-     * display pageSize
+     * {pageButtons} {customPage} {pageSize}
      */
-    public $showPageSize = true;
+    public $template = '{pageButtons} {pageSize}';
+    
     /**
      * pageSize list
      */
     public $pageSizeList = [10, 20, 30, 50];
 
     /**
-     *  drop-down box position
-     *  default is 'right'
+     *
+     * Margin style for the  pageSize control
      */
-    public $dropDownPosition = 'right';
-    
-    private $dropDownOptions = ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-left:5px;margin-right:5px;margin-top:0px;'];
+    public $pageSizeMargin = "margin-left:5px;margin-right:5px;";
 
+
+    /**
+     * customPage width
+     */
+    public $customPageWidth = 50;
+    
+    /**
+     * Margin style for the  customPage control
+     */
+    public $customPageMargin = "margin-left:5px;margin-right:5px;";
+    
+    /**
+     * Jump
+     */
+    public $customPageBefore = '';
+    /**
+     * Page
+     */
+    public $customPageAfter = "";
+    
+    /**
+     * pageSize style
+     */
+    public $pageSizeOptions = ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-top:0px;'];
+
+    /**
+     * customPage style
+     */
+    public $customPageOptions = ['class' => 'form-control','style' => 'display: inline-block;margin-left:5px;margin-right:5px;margin-top:0px;'];
+    
+    
+    public function init() {
+        parent::init();
+        if($this->pageSizeMargin){
+            Html::addCssStyle($this->pageSizeOptions, $this->pageSizeMargin);
+        }
+        if($this->customPageWidth){
+            Html::addCssStyle($this->customPageOptions, 'width:'.$this->customPageWidth.'px;');
+        }
+        if($this->customPageMargin){
+            Html::addCssStyle($this->customPageOptions, $this->customPageMargin);
+        }
+    }
+    
+    
     /**
      * Executes the widget.
      * This overrides the parent implementation by displaying the generated page buttons.
@@ -40,26 +82,47 @@ class LinkPager extends \yii\widgets\LinkPager{
         if ($this->registerLinkTags) {
             $this->registerLinkTags();
         }
-        $leftContent = "";
-        $rightContent = "";
-        if($this->showPageSize && $this->pagination->totalCount > 0){
-            $dropDownList = $this->renderPageDropDownList();
-            if($this->dropDownPosition == static::POSITION_LEFT){
-                $leftContent = $dropDownList;
-            }
-            else if($this->dropDownPosition == static::POSITION_RIGHT){
-                $rightContent = $dropDownList;
-            }
-        }
-        echo $leftContent.$this->renderPageButtons().$rightContent;
+       echo $this->renderPageContent();
     }
     
-    protected function renderPageDropDownList(){
+    protected function renderPageContent(){
+       return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) {
+            $name = $matches[1];
+            if('customPage' == $name){
+                return $this->renderCustomPage();
+            }
+            if('pageSize' ==  $name){
+                return $this->renderPageSize();
+            }
+            if('pageButtons' == $name){
+                return $this->renderPageButtons();
+            }
+        }, $this->template);
+    }
+
+
+    protected function renderPageSize(){
         $pageSizeList = [];
         foreach ($this->pageSizeList as $value) {
             $pageSizeList[$value] = $value;
         }
         //$linkurl =  $this->pagination->createUrl($page);
-        return Html::dropDownList($this->pagination->pageSizeParam, $this->pagination->getPageSize(), $pageSizeList, $this->dropDownOptions);
+        return Html::dropDownList($this->pagination->pageSizeParam, $this->pagination->getPageSize(), $pageSizeList, $this->pageSizeOptions);
     }
+    
+    protected function renderCustomPage(){
+        $page = 1;
+        $params = Yii::$app->getRequest()->queryParams;
+        if(isset($params[$this->pagination->pageParam])){
+            $page = intval($params[$this->pagination->pageParam]);
+            if($page < 1){
+                $page = 1;
+            }
+            else if($page > $this->pagination->getPageCount()){
+                $page = $this->pagination->getPageCount();
+            }
+        }
+        return $this->customPageBefore.Html::textInput($this->pagination->pageParam, $page,$this->customPageOptions).$this->customPageAfter;
+    }
+
 }
