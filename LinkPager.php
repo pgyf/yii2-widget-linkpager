@@ -56,7 +56,7 @@ class LinkPager extends \yii\widgets\LinkPager{
     /**
      * customPage style
      */
-    public $customPageOptions = ['class' => 'form-control','style' => 'display: inline-block;margin-left:5px;margin-right:5px;margin-top:0px;'];
+    public $customPageOptions = ['class' => 'form-control','style' => 'display: inline-block;margin-top:0px;'];
     
     
     public function init() {
@@ -91,12 +91,13 @@ class LinkPager extends \yii\widgets\LinkPager{
             if('customPage' == $name){
                 return $this->renderCustomPage();
             }
-            if('pageSize' ==  $name){
+            else if('pageSize' ==  $name){
                 return $this->renderPageSize();
             }
-            if('pageButtons' == $name){
+            else if('pageButtons' == $name){
                 return $this->renderPageButtons();
             }
+            return "";
         }, $this->template);
     }
 
