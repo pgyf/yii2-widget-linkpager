@@ -42,6 +42,8 @@ GridView options
     'pager' => [
         'class' => \liyunfang\pager\LinkPager::className(),
         //'template' => '{pageButtons} {customPage} {pageSize}',
+        //'pageSizeMargin' => 'margin-left:5px;margin-right:5px;',
+        //'customPageMargin' => 'margin-left:5px;margin-right:5px;',
         //'pageSizeList' => [10, 20, 30, 50],
         //'customPageWidth' => 50,
         //'customPageBefore' => ' Jump to ',
