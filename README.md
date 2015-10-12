@@ -42,13 +42,13 @@ GridView options
     'pager' => [
         'class' => \liyunfang\pager\LinkPager::className(),
         //'template' => '{pageButtons} {customPage} {pageSize}',
-        //'pageSizeMargin' => 'margin-left:5px;margin-right:5px;',
-        //'customPageMargin' => 'margin-left:5px;margin-right:5px;',
         //'pageSizeList' => [10, 20, 30, 50],
+        //'pageSizeMargin' => 'margin-left:5px;margin-right:5px;',
         //'pageSizeOptions' => ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-top:0px;'];
         //'customPageWidth' => 50,
         //'customPageBefore' => ' Jump to ',
         //'customPageAfter' => ' Page ',
+        //'customPageMargin' => 'margin-left:5px;margin-right:5px;',
         //'customPageOptions' => ['class' => 'form-control','style' => 'display: inline-block;margin-top:0px;'];
     ],
  ```
