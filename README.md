@@ -45,9 +45,11 @@ GridView options
         //'pageSizeMargin' => 'margin-left:5px;margin-right:5px;',
         //'customPageMargin' => 'margin-left:5px;margin-right:5px;',
         //'pageSizeList' => [10, 20, 30, 50],
+        //'pageSizeOptions' => ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-top:0px;'];
         //'customPageWidth' => 50,
         //'customPageBefore' => ' Jump to ',
         //'customPageAfter' => ' Page ',
+        //'customPageOptions' => ['class' => 'form-control','style' => 'display: inline-block;margin-top:0px;'];
     ],
  ```
  
