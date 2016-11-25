@@ -1,5 +1,5 @@
 <?php
-namespace hubeiwei\pager;
+namespace liyunfang\pager;
 
 use Yii;
 use yii\helpers\Html;
@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /**
  * Description of LinkPager
  *
- * @author hubeiwei <hubeiwei1234@qq.com>
+ * @author liyunfang <381296986@qq.com>
  * @date 2015-09-07
  */
 class LinkPager extends \yii\widgets\LinkPager
