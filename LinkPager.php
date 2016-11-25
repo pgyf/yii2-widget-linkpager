@@ -112,6 +112,10 @@ class LinkPager extends \yii\widgets\LinkPager{
     }
     
     protected function renderCustomPage(){
+        $pageCount = $this->pagination->getPageCount();
+        if ($pageCount < 2 && $this->hideOnSinglePage) {
+            return '';
+        }
         $page = 1;
         $params = Yii::$app->getRequest()->queryParams;
         if(isset($params[$this->pagination->pageParam])){
@@ -119,8 +123,8 @@ class LinkPager extends \yii\widgets\LinkPager{
             if($page < 1){
                 $page = 1;
             }
-            else if($page > $this->pagination->getPageCount()){
-                $page = $this->pagination->getPageCount();
+            else if($page > $pageCount){
+                $page = $pageCount;
             }
         }
         return $this->customPageBefore.Html::textInput($this->pagination->pageParam, $page,$this->customPageOptions).$this->customPageAfter;
