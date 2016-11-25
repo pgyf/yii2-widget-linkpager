@@ -1,5 +1,5 @@
 <?php
-namespace liyunfang\pager;
+namespace hubeiwei\pager;
 
 use Yii;
 use yii\helpers\Html;
@@ -7,16 +7,16 @@ use yii\helpers\Html;
 /**
  * Description of LinkPager
  *
- * @author liyunfang <381296986@qq.com>
+ * @author hubeiwei <hubeiwei1234@qq.com>
  * @date 2015-09-07
  */
-class LinkPager extends \yii\widgets\LinkPager{
-    
+class LinkPager extends \yii\widgets\LinkPager
+{
     /**
      * {pageButtons} {customPage} {pageSize}
      */
-    public $template = '{pageButtons} {pageSize}';
-    
+    public $template = '<div class="form-inline">{pageButtons}{customPage}</div>';
+
     /**
      * pageSize list
      */
@@ -26,19 +26,24 @@ class LinkPager extends \yii\widgets\LinkPager{
      *
      * Margin style for the  pageSize control
      */
-    public $pageSizeMargin = "margin-left:5px;margin-right:5px;";
-
+    public $pageSizeMargin = [
+        'margin-left' => '5px',
+        'margin-right' => '5px',
+    ];
 
     /**
      * customPage width
      */
     public $customPageWidth = 50;
-    
+
     /**
      * Margin style for the  customPage control
      */
-    public $customPageMargin = "margin-left:5px;margin-right:5px;";
-    
+    public $customPageMargin = [
+        'margin-left' => '5px',
+        'margin-right' => '5px',
+    ];
+
     /**
      * Jump
      */
@@ -46,33 +51,47 @@ class LinkPager extends \yii\widgets\LinkPager{
     /**
      * Page
      */
-    public $customPageAfter = "";
-    
+    public $customPageAfter = '';
+
     /**
      * pageSize style
      */
-    public $pageSizeOptions = ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-top:0px;'];
+    public $pageSizeOptions = [
+        'class' => 'form-control',
+        'style' => [
+            'display' => 'inline-block',
+            'width' => 'auto',
+            'margin-top' => '0px',
+        ],
+    ];
 
     /**
      * customPage style
      */
-    public $customPageOptions = ['class' => 'form-control','style' => 'display: inline-block;margin-top:0px;'];
-    
-    
-    public function init() {
+    public $customPageOptions = [
+        'class' => 'form-control',
+        'style' => [
+            'display' => 'inline-block',
+            'margin-top' => '0px',
+        ],
+    ];
+
+
+    public function init()
+    {
         parent::init();
-        if($this->pageSizeMargin){
+        if ($this->pageSizeMargin) {
             Html::addCssStyle($this->pageSizeOptions, $this->pageSizeMargin);
         }
-        if($this->customPageWidth){
-            Html::addCssStyle($this->customPageOptions, 'width:'.$this->customPageWidth.'px;');
+        if ($this->customPageWidth) {
+            Html::addCssStyle($this->customPageOptions, 'width:' . $this->customPageWidth . 'px;');
         }
-        if($this->customPageMargin){
+        if ($this->customPageMargin) {
             Html::addCssStyle($this->customPageOptions, $this->customPageMargin);
         }
     }
-    
-    
+
+
     /**
      * Executes the widget.
      * This overrides the parent implementation by displaying the generated page buttons.
@@ -82,27 +101,27 @@ class LinkPager extends \yii\widgets\LinkPager{
         if ($this->registerLinkTags) {
             $this->registerLinkTags();
         }
-       echo $this->renderPageContent();
+        echo $this->renderPageContent();
     }
-    
-    protected function renderPageContent(){
-       return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) {
+
+    protected function renderPageContent()
+    {
+        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) {
             $name = $matches[1];
-            if('customPage' == $name){
+            if ('customPage' == $name) {
                 return $this->renderCustomPage();
-            }
-            else if('pageSize' ==  $name){
+            } else if ('pageSize' == $name) {
                 return $this->renderPageSize();
-            }
-            else if('pageButtons' == $name){
+            } else if ('pageButtons' == $name) {
                 return $this->renderPageButtons();
             }
-            return "";
+            return '';
         }, $this->template);
     }
 
 
-    protected function renderPageSize(){
+    protected function renderPageSize()
+    {
         $pageSizeList = [];
         foreach ($this->pageSizeList as $value) {
             $pageSizeList[$value] = $value;
@@ -110,20 +129,24 @@ class LinkPager extends \yii\widgets\LinkPager{
         //$linkurl =  $this->pagination->createUrl($page);
         return Html::dropDownList($this->pagination->pageSizeParam, $this->pagination->getPageSize(), $pageSizeList, $this->pageSizeOptions);
     }
-    
-    protected function renderCustomPage(){
+
+    protected function renderCustomPage()
+    {
+        $pageCount = $this->pagination->getPageCount();
+        if ($pageCount < 2 && $this->hideOnSinglePage) {
+            return '';
+        }
         $page = 1;
         $params = Yii::$app->getRequest()->queryParams;
-        if(isset($params[$this->pagination->pageParam])){
+        if (isset($params[$this->pagination->pageParam])) {
             $page = intval($params[$this->pagination->pageParam]);
-            if($page < 1){
+            if ($page < 1) {
                 $page = 1;
-            }
-            else if($page > $this->pagination->getPageCount()){
-                $page = $this->pagination->getPageCount();
+            } else if ($page > $pageCount) {
+                $page = $pageCount;
             }
         }
-        return $this->customPageBefore.Html::textInput($this->pagination->pageParam, $page,$this->customPageOptions).$this->customPageAfter;
+        return $this->customPageBefore . Html::textInput($this->pagination->pageParam, $page, $this->customPageOptions) . $this->customPageAfter;
     }
 
 }
