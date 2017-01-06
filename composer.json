@@ -1,14 +1,14 @@
 {
-	"name": "hubeiwei/yii2-widget-linkpager",
+	"name": "liyunfang/yii2-widget-linkpager",
 	"description": "yii2 Widget for LinkPager",
-	"homepage": "https://github.com/hubeiwei/yii2-widget-linkpager",
+	"homepage": "https://github.com/liyunfang/yii2-widget-linkpager",
 	"type": "yii2-extension",
 	"keywords": ["yii2","extension","yii2-widget-linkpager","linkpager"],
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "hubeiwei",
-			"email": "hubeiwei1234@qq.com"
+			"name": "liyunfang",
+			"email": "381296986@qq.com"
 		}
 	],
 	"minimum-stability": "dev",
@@ -18,7 +18,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"hubeiwei\\pager\\": ""
+			"liyunfang\\pager\\": ""
 		}
 	}
 }
