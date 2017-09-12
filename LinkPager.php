@@ -1,4 +1,5 @@
 <?php
+
 namespace liyunfang\pager;
 
 use Yii;
@@ -12,10 +13,30 @@ use yii\helpers\Html;
  */
 class LinkPager extends \yii\widgets\LinkPager
 {
+    public $options = [
+        'class' => ['pagination'],
+        'style' => [
+            'margin-top' => '0',
+            'margin-bottom' => '-4px',
+        ],
+    ];
+
     /**
      * {pageButtons} {customPage} {pageSize}
      */
-    public $template = '<div class="form-inline">{pageButtons}{customPage}</div>';
+    public $template = '
+<div class="form-inline">
+    <div class="form-group">{pageButtons}</div>
+    <div class="form-group">
+        <label>跳转到：</label>
+        {customPage}
+    </div>
+    <div class="form-group">
+        <label>每页：</label>
+        {pageSize}
+    </div>
+</div>
+';
 
     /**
      * pageSize list
@@ -23,46 +44,11 @@ class LinkPager extends \yii\widgets\LinkPager
     public $pageSizeList = [10, 20, 30, 50];
 
     /**
-     *
-     * Margin style for the  pageSize control
-     */
-    public $pageSizeMargin = [
-        'margin-left' => '5px',
-        'margin-right' => '5px',
-    ];
-
-    /**
-     * customPage width
-     */
-    public $customPageWidth = 50;
-
-    /**
-     * Margin style for the  customPage control
-     */
-    public $customPageMargin = [
-        'margin-left' => '5px',
-        'margin-right' => '5px',
-    ];
-
-    /**
-     * Jump
-     */
-    public $customPageBefore = '';
-    /**
-     * Page
-     */
-    public $customPageAfter = '';
-
-    /**
      * pageSize style
      */
     public $pageSizeOptions = [
         'class' => 'form-control',
-        'style' => [
-            'display' => 'inline-block',
-            'width' => 'auto',
-            'margin-top' => '0px',
-        ],
+        'style' => ['width' => '80px'],
     ];
 
     /**
@@ -70,26 +56,8 @@ class LinkPager extends \yii\widgets\LinkPager
      */
     public $customPageOptions = [
         'class' => 'form-control',
-        'style' => [
-            'display' => 'inline-block',
-            'margin-top' => '0px',
-        ],
+        'style' => ['width' => '50px'],
     ];
-
-
-    public function init()
-    {
-        parent::init();
-        if ($this->pageSizeMargin) {
-            Html::addCssStyle($this->pageSizeOptions, $this->pageSizeMargin);
-        }
-        if ($this->customPageWidth) {
-            Html::addCssStyle($this->customPageOptions, 'width:' . $this->customPageWidth . 'px;');
-        }
-        if ($this->customPageMargin) {
-            Html::addCssStyle($this->customPageOptions, $this->customPageMargin);
-        }
-    }
 
 
     /**
@@ -119,7 +87,6 @@ class LinkPager extends \yii\widgets\LinkPager
         }, $this->template);
     }
 
-
     protected function renderPageSize()
     {
         $pageSizeList = [];
@@ -146,7 +113,6 @@ class LinkPager extends \yii\widgets\LinkPager
                 $page = $pageCount;
             }
         }
-        return $this->customPageBefore . Html::textInput($this->pagination->pageParam, $page, $this->customPageOptions) . $this->customPageAfter;
+        return Html::textInput($this->pagination->pageParam, $page, $this->customPageOptions);
     }
-
 }

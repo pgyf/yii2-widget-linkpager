@@ -37,32 +37,41 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 GridView options
+
 ```php
-    'filterSelector' => "select[name='".$dataProvider->getPagination()->pageSizeParam."'],input[name='".$dataProvider->getPagination()->pageParam."']",
-    'pager' => [
-        'class' => \liyunfang\pager\LinkPager::className(),
-        //'template' => '{pageButtons} {customPage} {pageSize}',
-        //'pageSizeList' => [10, 20, 30, 50],
-        //'pageSizeMargin' => 'margin-left:5px;margin-right:5px;',
-        //'pageSizeOptions' => ['class' => 'form-control','style' => 'display: inline-block;width:auto;margin-top:0px;'];
-        //'customPageWidth' => 50,
-        //'customPageBefore' => ' Jump to ',
-        //'customPageAfter' => ' Page ',
-        //'customPageMargin' => 'margin-left:5px;margin-right:5px;',
-        //'customPageOptions' => ['class' => 'form-control','style' => 'display: inline-block;margin-top:0px;'];
-    ],
- ```
- 
-ModelSearch
-```php
-    public function search($params)
-    {
-        ...
-        $pageSize = isset($params['per-page']) ? intval($params['per-page']) : 10;
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' =>  ['pageSize' => $pageSize,],
-        ]);
-        
- ```
+'filterSelector' => 'select[name="' . $dataProvider->getPagination()->pageSizeParam . '"], input[name="' . $dataProvider->getPagination()->pageParam . '"]',
+'pager' => [
+    'class' => \liyunfang\pager\LinkPager::className(),
+    /*'template' => '
+<div class="form-inline">
+    <div class="form-group">{pageButtons}</div>
+    <div class="form-group">
+        <label>跳转到：</label>
+        {customPage}
+    </div>
+    <div class="form-group">
+        <label>每页：</label>
+        {pageSize}
+    </div>
+</div>
+',*/
+    /*'options' => [
+        'class' => ['pagination'],
+        'style' => [
+            'margin-top' => 0,
+            'margin-bottom' => '-4px',
+        ],
+    ],*/
+    //'pageSizeList' => [10, 20, 30, 50],
+    /*pageSizeOptions => [
+        'class' => 'form-control',
+        'style' => ['width' => '80px'],
+    ],*/
+    /*customPageOptions => [
+        'class' => 'form-control',
+        'style' => ['width' => '50px'],
+    ],*/
+],
+```
+
 2015-09-16 重构代码，增加自定义跳转页面文本框
